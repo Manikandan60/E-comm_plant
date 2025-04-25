@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="h-100 cart-style">
+  <div class="container h-100 py-5">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-10">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3 class="fw-normal mb-0">Shopping Cart</h3>
+          <div>
+            <p class="mb-0">
+              <span class="text-muted">Sort by:</span>
+              <a href="#!" class="text-body">
+                price <i class="fas fa-angle-down mt-1"></i>
+              </a>
+            </p>
+          </div>
+        </div>
+
+        {% if cart_items %}
+          {% for item in cart_items %}
+            <div class="card rounded-3 mb-4">
+              <div class="card-body p-4">
+                <div class="row d-flex justify-content-between align-items-center">
+
+                  <!-- Image -->
+                  <div class="col-md-2 col-lg-2 col-xl-2">
+                    <img src="{{ item.product.image.url }}" class="img-fluid rounded-3" alt="{{ item.product.name }}">
+                  </div>
+
+                  <!-- Name / Details -->
+                  <div class="col-md-3 col-lg-3 col-xl-3">
+                    <p class="lead fw-normal mb-2">{{ item.product.name }}</p>
+                    <p>
+                      <span class="text-muted">Size:</span> M
+                      <span class="text-muted">Life:</span> 8Y
+                    </p>
+                  </div>
+
+                  <!-- Quantity controls -->
+                  <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                    <button class="btn btn-link px-2 minus-btn">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <input min="1" name="quantity" value="{{ item.quantity }}" type="number" class="form-control form-control-sm qty-input" style="width: 60px" />
+                    <button class="btn btn-link px-2 plus-btn">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+
+                  <!-- Line total -->
+                  <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                    <h5 class="mb-0">₹
+                      <span class="line-total" data-unit-price="{{ item.product.sale_price|floatformat:2 }}">
+                        {{ item.product.sale_price|floatformat:2 }}
+                      </span>
+                    </h5>
+                  </div>
+
+                  <!-- Remove -->
+                  <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                    <a href="{% url 'remove_from_cart' item.product.id %}" class="text-danger">
+                      <i class="fas fa-trash fa-lg"></i>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+
+          <!-- Discount code -->
+          <div class="card mb-4">
+            <div class="card-body p-4 d-flex flex-row">
+              <div data-mdb-input-init class="form-outline flex-fill">
+                <input type="text" id="discount" class="form-control form-control-lg" />
+                <label class="form-label" for="discount">Discount code</label>
+              </div>
+              <button type="button" class="btn btn-outline-warning btn-lg ms-3">Apply</button>
+            </div>
+          </div>
+
+          <!-- Cart total & proceed -->
+          <div class="text-end fw-bold mb-4">
+            Cart Total: ₹<span id="cart-total">{{ cart_total|floatformat:2 }}</span>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <a href="{% url 'payment' %}">
+                <button type="button" class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
+              </a>
+            </div>
+          </div>
+
+        {% else %}
+        <div style="height: 300px;">
+          <p class="text-center" style="padding: 100px;" >Your cart is empty.</p>
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function updateCartTotal() {
+    let sum = 0;
+    document.querySelectorAll('.line-total').forEach(el => sum += parseFloat(el.textContent));
+    const totalEl = document.getElementById('cart-total');
+    if (totalEl) totalEl.textContent = sum.toFixed(2);
+  }
+
+  document.querySelectorAll('.card-body').forEach(body => {
+    const qtyIn = body.querySelector('.qty-input');
+    const plus = body.querySelector('.plus-btn');
+    const minus = body.querySelector('.minus-btn');
+    const lineTotal = body.querySelector('.line-total');
+    const unitPrice = parseFloat(lineTotal.dataset.unitPrice);
+
+    function refreshLine() {
+      let q = Math.max(1, parseInt(qtyIn.value) || 1);
+      qtyIn.value = q;
+      lineTotal.textContent = (unitPrice * q).toFixed(2);
+      updateCartTotal();
+    }
+
+    plus.addEventListener('click', () => { qtyIn.stepUp(); refreshLine(); });
+    minus.addEventListener('click', () => { qtyIn.stepDown(); refreshLine(); });
+  });
+</script>
+
+{% endblock content %}
+
+
+
+
+
+
+    
+  

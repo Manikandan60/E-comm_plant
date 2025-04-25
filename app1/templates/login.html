@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <section>
+      <img class="blur-img login-img" src="{% static 'img/elegance-hd-tree-leaves-close-up-plants-nature-8k-top-best-free-download-wallpapers-for-macbook-pro-air-and-microsoft-windows-pcs-desktop-4k-07-12-2024-1733638179-hd-wallpaper.webp' %}" alt="" height="700px" width="100%">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4 login-page border border-3 border-success rounded-1 login-data" style="margin-top: 80px;">
+                    <form method="POST" action="{% url 'login' %}">
+                       {% csrf_token %}
+                        <a href="" class="fs-1 d-flex justify-content-center mt-4"><i class="fa-solid fa-seedling logo-color"></i></a>
+                         <h5 class="text-white text-center mt-3 fw-bold">LOGIN</h5>
+                        <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label text-white"></label>
+                          <input type="name" placeholder="User name" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="exampleInputPassword1" class="form-label text-white"></label>
+                          <input type="password" placeholder="Password" name="password" class="form-control" id="exampleInputPassword1">
+                        </div>
+                        <button type="submit" class="btn btn-color mt-1">Login</button>
+                        <span class="text-white mx-2">If you already have accout <i class="fa-solid fa-arrow-right fs-6"></i></span>
+
+                        <button type="submit" class="btn mt-1 sign-btn" >Signup</button>
+                      </form>
+                </div>
+                <div class="col-4"></div>
+            </div>
+
+        </div>
+    </section>
+{% endblock content %}
+

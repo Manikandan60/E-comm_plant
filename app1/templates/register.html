@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <section>
+        <img class="blur-img login-img" src="{% static 'img/elegance-hd-tree-leaves-close-up-plants-nature-8k-top-best-free-download-wallpapers-for-macbook-pro-air-and-microsoft-windows-pcs-desktop-4k-07-12-2024-1733638179-hd-wallpaper.webp' %}" alt="" height="700px" width="100%">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4 border border-3 border-success rounded-1 login-data mt-5 p-5">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <a href="" class="fs-1 d-flex justify-content-center mt-0">
+                            <i class="fa-solid fa-seedling logo-color"></i>
+                        </a>
+                        <h5 class="text-white text-center mt-3 fw-bold">SIGN UP</h5>
+                    
+                        <div class="mb-3">
+                            {{ form.username }}
+
+                            {% if form.errors.username %}
+                            <label class="text-danger d-block">{{ form.errors.username }}</label>
+                            {% endif %}
+                        </div>
+                    
+                        <div class="mb-3">
+                            {{ form.email }}
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                    
+                        <div class="mb-3">
+                            {{ form.password1 }}
+
+                            {% if form.errors.password1 %}
+                            <label class="text-danger d-block">{{ form.errors.password1 }}</label>
+                            {% endif %}
+                        </div>
+                    
+                        <div class="mb-3">
+                            {{ form.password2 }}
+
+                            {% if form.errors.password2 %}
+                            <label class="text-danger d-block">{{ form.errors.password2 }}</label>
+                            {% endif %}
+                        </div>
+                        <div class="text-center">
+                           <button type="submit" class="btn sign-btn mt-1">Register</button>
+                        </div>
+                    </form>
+            
+                    
+                </div>
+                <div class="col-4"></div>
+            </div>
+
+        </div>
+    </section>
+
+{% endblock content %}
+

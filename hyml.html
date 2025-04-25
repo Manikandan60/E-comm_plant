@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Cart</title>
+    <style>
+        .cart-counter {
+            background: red;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+        }
+        .add-to-cart-btn {
+            padding: 10px 20px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>🛒 Cart: <span id="cartCount" class="cart-counter">0</span></h2>
+
+<div>
+    <h3>Peperomia Plant</h3>
+    <button class="add-to-cart-btn">Add to Cart</button>
+</div>
+
+<div>
+    <h3>Monstera Plant</h3>
+    <button class="add-to-cart-btn">Add to Cart</button>
+</div>
+
+<script>
+    let cartCount = 0;
+
+    const buttons = document.querySelectorAll('.add-to-cart-btn');
+    const cartDisplay = document.getElementById('cartCount');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            cartCount++;
+            cartDisplay.textContent = cartCount;
+            alert("Item added to cart!");
+        });
+    });
+</script>
+
+</body>
+</html>
